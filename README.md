@@ -1,12 +1,36 @@
-# Products API (FastAPI)
+# AsyncWarehouse API
 
-Каталог продуктов с REST API.
+Высокопроизводительный API для управления складом.
 
-## Установка и запуск
+## Ключевые возможности FastAPI
+1. **Pydantic v2 Integration**: Строгая типизация и автоматическая генерация JSON-схем.
+2. **Dependency Injection**: Проверка безопасности и прав доступа через `Depends`.
+3. **Lifespan Events**: Логика инициализации и завершения работы приложения.
+4. **Background Tasks**: Выполнение тяжелых операций (отчеты) без блокировки ответа клиенту.
+5. **WebSockets**: Двусторонний канал связи для мониторинга состояния системы в реальном времени.
+6. **Middleware**: Автоматический замер производительности всех запросов.
+7. **APIRouter**: Чистая архитектура с разделением по модулям.
 
-```bash
-# Установка зависимостей
-pip install -r requirements.txt
+## Запуск
+1. Установка: `pip install fastapi uvicorn`
+2. Запуск: `uvicorn app.main:app --reload`
+3. Документация (Swagger): `http://127.0.0.1:8000/docs`
 
-# Запуск сервера
-uvicorn app.main:app --reload
+## Структура
+```
+warehouse_api/
+│
+├── app/
+│   ├── __init__.py
+│   ├── main.py           # Точка входа, lifespan, middleware
+│   ├── api/
+│   │   └── router.py     # Эндпоинты и логика маршрутизации
+│   ├── core/
+│   │   ├── deps.py       # Зависимости (DI)
+│   │   └── security.py   # Обработка заголовков/безопасность
+│   ├── schemas/
+│   │   └── product.py    # Pydantic-схемы (модели данных)
+│   └── services/
+│       └── actions.py    # Бизнес-логика и фоновые задачи
+├── README.md
+└── task.md
